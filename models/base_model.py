@@ -8,8 +8,8 @@ class BaseModel:
     def __init__(self):
         """Initializes public instance attributes"""
         self.id = str(uuid.uuid4())
-        self.created_at = datetime.now().isoformat()
-        self.updated_at = datetime.now().isoformat()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
     def __str__(self):
         """Prints a string rep of the class"""
@@ -17,7 +17,7 @@ class BaseModel:
 
     def save(self):
         """updates updated_at with current datetime"""
-        self.updated_at = datetime.now().isoformat()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """Returns dict with all key/values of __dict__ of the instance"""
