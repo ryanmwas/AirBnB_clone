@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Creates Base class with common methods/attributes for other classess"""
 import uuid
-from datetime import datetime as datetime
+from datetime import datetime
 
 
 class BaseModel:
@@ -21,11 +21,12 @@ class BaseModel:
 
     def to_dict(self):
         """Returns dict with all key/values of __dict__ of the instance"""
-        instance_dict = self.__dict__
-        modified_dict = instance_dict.copy()
-        modified_dict["__class__"] = self.__class__.__name__
-        modified_dict = {
-                "created_at.isoformat()": instance_dict["created_at"],
-                "updated_at.isoformat()": instance_dict["updated_at"]
-                }
-        return modified_dict
+        dictFormat = {}
+        dictFormat["__class__"] = self.__class__.__name__
+        for key, value in self.__dict__.items():
+            # Get the values of datetime object
+            if isinstance(value, datetime):
+                dictFormat[key] = value.isoformat()
+            else:
+                dictFormat[key] = value
+        return dictFormat
